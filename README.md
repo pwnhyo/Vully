@@ -9,4 +9,4 @@ sudo ./joern-install.sh
 joern
 ```
 
-if you use Mac OS, Do brew install `md5sha1sum` and `coreutils` first.
+if you use Mac OS, Do brew install `md5sha1sum`, `graphviz` and `coreutils` first.
