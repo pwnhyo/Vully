@@ -1,4 +1,4 @@
-from model.model import PhpNetGraphTokensSingle
+from model.model import GCNNet
 import torch
 from torch.utils import data
 from torch import nn
@@ -69,7 +69,7 @@ y = np.array(y)
 X_train, X_test, _,y_test = train_test_split(x,y, test_size=0.1,stratify=y,shuffle=True) #42
 X_train, X_val = train_test_split(X_train, test_size=1/9)
 my_dataloader = DataLoader(np.array(X_train)[:,0],batch_size=64,shuffle=True)
-model = PhpNetGraphTokensSingle() 
+model = GCNNet() 
 model.to(device)
 epochs=60
 dtype = torch.long
