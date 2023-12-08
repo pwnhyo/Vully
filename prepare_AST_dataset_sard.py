@@ -152,7 +152,7 @@ for type in ['SQLi', 'XSS', 'Command injection']:
     data_no_flaw = set()
     # data_un = set()
 
-with open('sard_multi_replace_tokens_AST_token.pkl', 'wb') as f:
+with open('./sard_multi_replace_tokens_AST_token.pkl', 'wb') as f:
     pickle.dump(data_ls, f)
 
 print(no_flaws)
