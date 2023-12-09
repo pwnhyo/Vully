@@ -1,4 +1,4 @@
-from model.model import PhpNetGraphTokensAST
+from model.model import GCNNetAST
 import torch
 from torch.utils import data
 from torch import nn
@@ -14,6 +14,19 @@ from torch.utils import data
 import matplotlib.pyplot as plt
 # import main
 import util
+import os
+import random
+
+# Set the seed
+seed = 42
+os.environ['PYTHONHASHSEED'] = str(seed)
+torch.manual_seed(seed)
+torch.cuda.manual_seed(seed)
+torch.cuda.manual_seed_all(seed)
+np.random.seed(seed)
+random.seed(seed)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
 
 # Set the device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -64,9 +77,9 @@ x,y = get_data()
 X_train, X_test = train_test_split(x, test_size=0.1,stratify=y) #42
 X_train, X_val = train_test_split(X_train, test_size=1/9)
 my_dataloader = DataListLoader(X_train,batch_size=64,shuffle=True)
-model = PhpNetGraphTokensAST()
+model = GCNNetAST()
 model.to(device)
-epochs=100
+epochs=50
 dtype = torch.long
 print_every = 500
 losses = []

@@ -16,10 +16,22 @@ from torch.utils import data
 import matplotlib.pyplot as plt
 # import main
 import util
+import os
+import random
+
+# Set the seed
+seed = 42
+os.environ['PYTHONHASHSEED'] = str(seed)
+torch.manual_seed(seed)
+torch.cuda.manual_seed(seed)
+torch.cuda.manual_seed_all(seed)
+np.random.seed(seed)
+random.seed(seed)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
 
 # Set the device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 weight = torch.Tensor(np.array([1,24.1,4.9,30])).to(device=device)
 
 f = open("./sard_multi_replace_tokens_CFG_token.pkl", 'rb')
@@ -69,9 +81,9 @@ y = np.array(y)
 X_train, X_test, _,y_test = train_test_split(x,y, test_size=0.1,stratify=y,shuffle=True) #42
 X_train, X_val = train_test_split(X_train, test_size=1/9)
 my_dataloader = DataLoader(np.array(X_train)[:,0],batch_size=64,shuffle=True)
-model = GCNNet(num_features=4000, num_classes=4, hidden_units=16, dropout=0.5) 
+model = GCNNet() 
 model.to(device)
-epochs=60
+epochs=50
 dtype = torch.long
 print_every = 500
 losses = []

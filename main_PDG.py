@@ -16,6 +16,19 @@ from torch.utils import data
 import matplotlib.pyplot as plt
 # import main
 import util
+import os
+import random
+
+# Set the seed
+seed = 42
+os.environ['PYTHONHASHSEED'] = str(seed)
+torch.manual_seed(seed)
+torch.cuda.manual_seed(seed)
+torch.cuda.manual_seed_all(seed)
+np.random.seed(seed)
+random.seed(seed)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
 
 # Set the device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -71,7 +84,7 @@ X_train, X_val = train_test_split(X_train, test_size=1/9)
 my_dataloader = DataLoader(np.array(X_train)[:,0],batch_size=64,shuffle=True)
 model = GCNNet() 
 model.to(device)
-epochs=60
+epochs=50
 dtype = torch.long
 print_every = 500
 losses = []
